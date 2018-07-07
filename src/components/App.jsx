@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import posed from 'react-pose'
 import headshot from '../images/headshot.png'
 import github from '../images/github.png'
 import linkedin from '../images/linkedin.png'
@@ -55,7 +56,7 @@ const LogoLink = styled.a`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 10px;
+  padding: 10px;
   @media only screen and (min-width: 480px) {
     flex-direction: column;
   }
@@ -64,7 +65,19 @@ const LogoLink = styled.a`
 const Name = styled.div`
   font-size: 32px;
   font-weight: 500;
+  display: ${props => props.display ? 'block' : 'none'};
 `
+
+const Animated = posed.div({
+  visible: {
+    opacity: 1,
+    transition: {
+      type: 'spring',
+      stiffness: 100
+    }
+  },
+  hidden: {opacity: 0},
+})
 
 
 export default class App extends React.Component {
@@ -73,7 +86,8 @@ export default class App extends React.Component {
     this.state = {
       headshot: headshot.preSrc,
       github: github.preSrc,
-      linkedin: linkedin.preSrc
+      linkedin: linkedin.preSrc,
+      hover: null
     }
   }
   componentDidMount() {
@@ -89,10 +103,7 @@ export default class App extends React.Component {
       <Card>
         <Stroke/>
         <Row>
-          <LogoLink
-            onMouseEnter={() => this.setState({hover: 'headshot'})}
-            onMouseLeave={() => this.setState({hover: null})}
-            >
+          <LogoLink>
             <Headshot src={this.state.headshot} size={121}/>
           </LogoLink>
           <LogoLink
@@ -111,7 +122,15 @@ export default class App extends React.Component {
           </LogoLink>
         </Row>
         <Row>
-          <Name>Harris Borawski</Name>
+          <Name display={this.state.hover === null}>
+            <Animated pose={this.state.hover === null ? 'visible':'hidden'}>Harris Borawski</Animated>
+          </Name>
+          <Name display={this.state.hover === 'github'}>
+            <Animated pose={this.state.hover === 'github' ? 'visible':'hidden'}>GitHub</Animated>
+          </Name>
+          <Name display={this.state.hover === 'linkedin'}>
+            <Animated pose={this.state.hover === 'linkedin' ? 'visible':'hidden'}>LinkedIn</Animated>
+          </Name>
         </Row>
       </Card>
     </Container>
