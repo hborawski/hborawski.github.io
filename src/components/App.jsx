@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import headshot from '../images/headshot.jpg'
+import headshot from '../images/headshot.png'
 import github from '../images/github.png'
 import linkedin from '../images/linkedin.png'
 
