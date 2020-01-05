@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "export": "next export && mv out/* .. && rm -rf out",
+    "export": "rm -r ../* && next export && mv out/* .. && rm -rf out && touch ../_next/.nojekyll",
     "start": "next start"
   },
   "dependencies": {
