@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "export": "next export && mv out/index.html . && sed -i '' 's/_next/out\\/_next/g' index.html",
+    "export": "next export && mv out/* .. && rm -rf out",
     "start": "next start"
   },
   "dependencies": {
